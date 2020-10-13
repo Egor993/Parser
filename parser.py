@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 
+
 URL = 'https://www.chitai-gorod.ru/catalog/books/'
 HEADERS = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 
 'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 
@@ -10,7 +11,7 @@ HEADERS = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 HOST = 'https://www.chitai-gorod.ru'
 FILE = 'books.csv'
 
-def save_file(items, path):
+def save_file(items, path): # сохраняет данные в файл csv
 	with open (path, 'w', newline='') as file:
 		writer = csv.writer(file, delimiter=';')
 		writer.writerow(['Название','Ссылка', 'Автор'])
@@ -18,7 +19,7 @@ def save_file(items, path):
 			writer.writerow([item['title'], item['link'], item['author']])
 
 def get_html(url, params=None): # params нужен для доп параметров, например для выбора всех страниц
-	r = requests.get(url, headers = HEADERS, params=params) # запрос
+	r = requests.get(url, headers = HEADERS, params=params) # запрос на url
 	return r
 
 def get_content(html): #  Данная функция преобразует html в объекты python, с которыми уже можно работать
@@ -44,4 +45,3 @@ def parse():
 		print('Error')
 
 parse()
-
